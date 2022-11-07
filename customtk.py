@@ -24,7 +24,6 @@ class App(customtkinter.CTk):
 
         self.video_loop()
 
-    
 
     def set_grid_layout(self):
         self.grid_columnconfigure(1, weight = 1)
@@ -38,7 +37,7 @@ class App(customtkinter.CTk):
 
         self.right_frame = customtkinter.CTkFrame(master=self, corner_radius = 20)
         self.right_frame.grid(row = 0, column = 1, sticky = "nswe", padx = 20)
-        self.video_label = tk.Label(self)
+        self.video_label = tk.Label(self, background = 'gray17')
         self.video_label.grid(row = 0, column = 1, padx = 30, pady = 30)
         
     def video_loop(self):
