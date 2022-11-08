@@ -31,17 +31,19 @@ class App(customtkinter.CTk):
 
 
     def video_loop(self):
+        """ Glowna petla video w ktorej przetwarzany jest obraz z kamerki internetowej """
         _, self.current_frame = self.cap.read()  # Pobranie klatki z kamery
         self.current_frame = cv2.flip(self.current_frame, 1)
-        self.current_frame = cv2.cvtColor(self.current_frame, cv2.COLOR_BGR2RGBA)
+        self.current_frame = cv2.cvtColor(self.current_frame, cv2.COLOR_BGR2RGBA) 
         self.final_frame = Image.fromarray(self.current_frame)  
         frame_tk = ImageTk.PhotoImage(image = self.final_frame)  
         self.video_label.imgtk = frame_tk 
         self.video_label.config(image = frame_tk) 
 
-        self.after(1, self.video_loop)
+        self.after(1, self.video_loop) # Co 1 ms wywolywana jest ponownie
         
     def set_grid_layout(self):
+        """ Tworzy siatke aplikacji """
         self.grid_columnconfigure(1, weight = 1)
         self.grid_rowconfigure(0, weight = 1)
         
@@ -59,6 +61,7 @@ class App(customtkinter.CTk):
 
         
     def set_labels(self):
+        """ Tworzy etykiety tekstowe oraz etykiete na ktorej wyswietlany jest obraz"""
         self.video_label = tk.Label(self, background = 'gray17')
         self.video_label.grid(row = 0, column = 1, padx = 30, pady = 30)
 
@@ -77,6 +80,7 @@ class App(customtkinter.CTk):
         self.appearance_label.grid(column = 0, row = 3,sticky = 'w', padx = 15)
 
     def set_buttons(self):
+        """ Tworzy przyciski """
         play_btn = customtkinter.CTkButton(
             master = self.left_frame,
             text = 'Play',
@@ -88,6 +92,7 @@ class App(customtkinter.CTk):
         play_btn.grid(row = 1, column = 0, padx = 15, pady = 15)
 
     def set_switches(self):
+        """ Tworzy rozsuwane listy wyboru"""
         self.change_theme_menu = customtkinter.CTkOptionMenu(
             master=self.left_frame,
             values=["Light", "Dark"],
@@ -97,12 +102,15 @@ class App(customtkinter.CTk):
         self.change_theme_menu.grid(row=4, column=0, pady=10, padx=20, sticky="sw")
 
     def set_default_values(self):
+        """ Ustala domyslne wartosci widgetow """
         self.change_theme_menu.set('Dark')
 
     def button_test(self):
+        """ Chuj dupa cipa """
         print('Chuj dupa cipa')
 
     def camera_init(self):
+        """ Inicjuje odczyt z kamerki internetowej oraz pobiera jej rozdzielczosc """
         self.cap = cv2.VideoCapture(0)
         _, self.current_frame = self.cap.read()
         self.WEBCAM_HEIGHT = self.current_frame.shape[0]
@@ -110,12 +118,15 @@ class App(customtkinter.CTk):
         self.final_frame = None
     
     def open_game(self):
+        """ Otwiera Subway Surfers w przegladarce"""
         webbrowser.open('https://poki.pl/g/subway-surfers#')
 
     def change_theme(self, new_theme):
+        """ Ustala domyslny motyw aplikacji """
         customtkinter.set_appearance_mode(new_theme)
 
     def destructor(self):
+        """ Niszczy okno aplikacji oraz zwalnia zasoby kamerki """
         self.destroy()
         self.cap.release()  
         cv2.destroyAllWindows()  
