@@ -45,8 +45,6 @@ class App(customtkinter.CTk):
         self.grid_columnconfigure(1, weight = 1)
         self.grid_rowconfigure(0, weight = 1)
 
-        
-
         self.left_frame = customtkinter.CTkFrame(master = self, width = 250, corner_radius = 20)                                        
         self.left_frame.grid(row = 0, column = 0, sticky = "nswe")
         
@@ -66,7 +64,7 @@ class App(customtkinter.CTk):
         self.menu_label = customtkinter.CTkLabel(
             master = self.left_frame,
             text = 'MENU',
-            text_font = ('Cooper Black', 16)
+            text_font = ('Cooper Black', 25)
         )
         self.menu_label.grid(column=0, row=0, sticky="n", padx=15, pady=15)
 
@@ -74,10 +72,12 @@ class App(customtkinter.CTk):
         pass
 
     def set_switches(self):
-        self.change_theme_menu = customtkinter.CTkOptionMenu(master=self.left_frame,
-                                                        values=["Light", "Dark"],
-                                                        text_font = ('Cooper Black', 12),
-                                                        command=self.change_theme)                                 
+        self.change_theme_menu = customtkinter.CTkOptionMenu(
+            master=self.left_frame,
+            values=["Light", "Dark"],
+            text_font = ('Cooper Black', 12),
+            command=self.change_theme)          
+                                   
         self.change_theme_menu.grid(row=10, column=0, pady=10, padx=20, sticky="sw")
 
     def set_default_values(self):
