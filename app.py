@@ -6,20 +6,20 @@ import cv2
 import psutil
 import time
 
-customtkinter.set_appearance_mode("System")  #System/Dark/Light
-customtkinter.set_default_color_theme("blue")  #blue/green/dark-blue
+
 
 
 class App(customtkinter.CTk):
 
-    WIDTH = 1280
-    HEIGHT = 720
+    APP_WIDTH = 1280
+    APP_HEIGHT = 720
 
     def __init__(self):
         super().__init__()
 
         self.title("HotBastards")
-        self.geometry(f"{App.WIDTH}x{App.HEIGHT}")
+        self.geometry(f"{App.APP_WIDTH}x{App.APP_HEIGHT}")
+        self.wm_iconphoto(False, ImageTk.PhotoImage(Image.open('icon.jpg')))
         self.set_grid_layout()
         self.set_labels()
         self.set_buttons()
@@ -31,10 +31,10 @@ class App(customtkinter.CTk):
 
 
     def video_loop(self):
-        _, current_frame = self.cap.read()  # Pobranie klatki z kamery
-        current_frame = cv2.flip(current_frame, 1)
-        current_frame = cv2.cvtColor(current_frame, cv2.COLOR_BGR2RGBA)  
-        self.final_frame = Image.fromarray(current_frame)  
+        _, self.current_frame = self.cap.read()  # Pobranie klatki z kamery
+        self.current_frame = cv2.flip(self.current_frame, 1)
+        self.current_frame = cv2.cvtColor(self.current_frame, cv2.COLOR_BGR2RGBA)  
+        self.final_frame = Image.fromarray(self.current_frame)  
         frame_tk = ImageTk.PhotoImage(image = self.final_frame)  
         self.video_label.imgtk = frame_tk 
         self.video_label.config(image = frame_tk)  
@@ -44,8 +44,6 @@ class App(customtkinter.CTk):
     def set_grid_layout(self):
         self.grid_columnconfigure(1, weight = 1)
         self.grid_rowconfigure(0, weight = 1)
-
-        
 
         self.left_frame = customtkinter.CTkFrame(master = self, width = 250, corner_radius = 20)                                        
         self.left_frame.grid(row = 0, column = 0, sticky = "nswe")
@@ -66,7 +64,7 @@ class App(customtkinter.CTk):
         self.menu_label = customtkinter.CTkLabel(
             master = self.left_frame,
             text = 'MENU',
-            text_font = ('Cooper Black', 16)
+            text_font = ('Cooper Black', 25)
         )
         self.menu_label.grid(column=0, row=0, sticky="n", padx=15, pady=15)
 
@@ -74,20 +72,25 @@ class App(customtkinter.CTk):
         pass
 
     def set_switches(self):
-        self.change_theme_menu = customtkinter.CTkOptionMenu(master=self.left_frame,
-                                                        values=["Light", "Dark"],
-                                                        text_font = ('Cooper Black', 12),
-                                                        command=self.change_theme)                                 
+        self.change_theme_menu = customtkinter.CTkOptionMenu(
+            master=self.left_frame,
+            values=["Light", "Dark"],
+            text_font = ('Cooper Black', 12),
+            command=self.change_theme)          
+                                   
         self.change_theme_menu.grid(row=10, column=0, pady=10, padx=20, sticky="sw")
 
     def set_default_values(self):
         self.change_theme_menu.set('Dark')
 
     def button_test(self):
-        print('Chuj')
+        print('Chuj dupa cipa')
 
     def camera_init(self):
         self.cap = cv2.VideoCapture(0)
+        _, self.current_frame = self.cap.read()
+        self.WEBCAM_HEIGHT = self.current_frame.shape[0]
+        self.WEBCAM_WIDTH = self.current_frame.shape[1]
         self.final_frame = None
         
     def change_theme(self, new_theme):
