@@ -84,7 +84,7 @@ class App(customtkinter.CTk):
         self.change_theme_menu.set('Dark')
 
     def button_test(self):
-        print('Chuj')
+        print('Chuj dupa cipa')
 
     def camera_init(self):
         self.cap = cv2.VideoCapture(0)
