@@ -33,7 +33,7 @@ class App(customtkinter.CTk):
     def video_loop(self):
         _, self.current_frame = self.cap.read()  # Pobranie klatki z kamery
         self.current_frame = cv2.flip(self.current_frame, 1)
-        self.current_frame = cv2.cvtColor(self.current_frame, cv2.COLOR_BGR2RGBA)  
+        self.current_frame = cv2.cvtColor(self.current_frame, cv2.COLOR_BGR2RGBA)
         self.final_frame = Image.fromarray(self.current_frame)  
         frame_tk = ImageTk.PhotoImage(image = self.final_frame)  
         self.video_label.imgtk = frame_tk 
