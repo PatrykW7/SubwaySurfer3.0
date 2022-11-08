@@ -6,20 +6,20 @@ import cv2
 import psutil
 import time
 
-customtkinter.set_appearance_mode("System")  #System/Dark/Light
-customtkinter.set_default_color_theme("blue")  #blue/green/dark-blue
+
 
 
 class App(customtkinter.CTk):
 
-    WIDTH = 1280
-    HEIGHT = 720
+    APP_WIDTH = 1280
+    APP_HEIGHT = 720
 
     def __init__(self):
         super().__init__()
 
         self.title("HotBastards")
-        self.geometry(f"{App.WIDTH}x{App.HEIGHT}")
+        self.geometry(f"{App.APP_WIDTH}x{App.APP_HEIGHT}")
+        self.wm_iconphoto(False, ImageTk.PhotoImage(Image.open('./Pierdoly/icon.jpg')))
         self.set_grid_layout()
         self.set_labels()
         self.set_buttons()
@@ -31,10 +31,10 @@ class App(customtkinter.CTk):
 
 
     def video_loop(self):
-        _, current_frame = self.cap.read()  # Pobranie klatki z kamery
-        current_frame = cv2.flip(current_frame, 1)
-        current_frame = cv2.cvtColor(current_frame, cv2.COLOR_BGR2RGBA)  
-        self.final_frame = Image.fromarray(current_frame)  
+        _, self.current_frame = self.cap.read()  # Pobranie klatki z kamery
+        self.current_frame = cv2.flip(self.current_frame, 1)
+        self.current_frame = cv2.cvtColor(self.current_frame, cv2.COLOR_BGR2RGBA)  
+        self.final_frame = Image.fromarray(self.current_frame)  
         frame_tk = ImageTk.PhotoImage(image = self.final_frame)  
         self.video_label.imgtk = frame_tk 
         self.video_label.config(image = frame_tk)  
@@ -88,6 +88,9 @@ class App(customtkinter.CTk):
 
     def camera_init(self):
         self.cap = cv2.VideoCapture(0)
+        _, self.current_frame = self.cap.read()
+        self.WEBCAM_HEIGHT = self.current_frame.shape[0]
+        self.WEBCAM_WIDTH = self.current_frame.shape[1]
         self.final_frame = None
         
     def change_theme(self, new_theme):
