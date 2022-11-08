@@ -50,9 +50,9 @@ class App(customtkinter.CTk):
         
         self.left_frame.grid_rowconfigure(0, minsize=10)
         self.left_frame.grid_rowconfigure(1,minsize=10)
-        self.left_frame.grid_rowconfigure(5, weight=1)  
-        self.left_frame.grid_rowconfigure(8, minsize=20)  
-        self.left_frame.grid_rowconfigure(11, minsize=10)  
+        self.left_frame.grid_rowconfigure(2, weight=1)  
+        self.left_frame.grid_rowconfigure(3, minsize=20)  
+        self.left_frame.grid_rowconfigure(4, minsize=10)  
 
         self.mid_frame = customtkinter.CTkFrame(master=self, corner_radius = 20)
         self.mid_frame.grid(row = 0, column = 1, sticky = "nswe", padx = (20, 0))
@@ -69,13 +69,20 @@ class App(customtkinter.CTk):
         )
         self.menu_label.grid(column=0, row=0, sticky="n", padx=15, pady=15)
 
+        self.appearance_label = customtkinter.CTkLabel(
+            master = self.left_frame,
+            text = 'Theme',
+            text_font = ('Cooper Black', 12)
+        )
+        self.appearance_label.grid(column = 0, row = 3,sticky = 'w', padx = 15)
+
     def set_buttons(self):
         play_btn = customtkinter.CTkButton(
             master = self.left_frame,
             text = 'Play',
             text_font = ('Cooper Black', 25),
-            width = 130,
-            height = 80,
+            width = 110,
+            height = 60,
             command = self.open_game
         )
         play_btn.grid(row = 1, column = 0, padx = 15, pady = 15)
@@ -87,7 +94,7 @@ class App(customtkinter.CTk):
             text_font = ('Cooper Black', 12),
             command=self.change_theme)          
                                    
-        self.change_theme_menu.grid(row=10, column=0, pady=10, padx=20, sticky="sw")
+        self.change_theme_menu.grid(row=4, column=0, pady=10, padx=20, sticky="sw")
 
     def set_default_values(self):
         self.change_theme_menu.set('Dark')
