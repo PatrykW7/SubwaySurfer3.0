@@ -6,9 +6,6 @@ import cv2
 import psutil
 import time
 
-
-
-
 class App(customtkinter.CTk):
 
     APP_WIDTH = 1280
@@ -17,9 +14,11 @@ class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
 
+        self.pTime = 0
+
         self.title("HotBastards")
         self.geometry(f"{App.APP_WIDTH}x{App.APP_HEIGHT}")
-        self.wm_iconphoto(False, ImageTk.PhotoImage(Image.open('icon.jpg')))
+        self.wm_iconphoto(False, ImageTk.PhotoImage(Image.open('./Pictures/icon.jpg')))
         self.set_grid_layout()
         self.set_labels()
         self.set_buttons()
@@ -37,8 +36,8 @@ class App(customtkinter.CTk):
         self.final_frame = Image.fromarray(self.current_frame)  
         frame_tk = ImageTk.PhotoImage(image = self.final_frame)  
         self.video_label.imgtk = frame_tk 
-        self.video_label.config(image = frame_tk)  
-        
+        self.video_label.config(image = frame_tk) 
+
         self.after(1, self.video_loop)
         
     def set_grid_layout(self):
