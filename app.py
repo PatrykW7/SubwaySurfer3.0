@@ -5,6 +5,7 @@ from PIL import Image, ImageTk
 import cv2
 import psutil
 import time
+import webbrowser
 
 class App(customtkinter.CTk):
 
@@ -43,14 +44,15 @@ class App(customtkinter.CTk):
     def set_grid_layout(self):
         self.grid_columnconfigure(1, weight = 1)
         self.grid_rowconfigure(0, weight = 1)
-
+        
         self.left_frame = customtkinter.CTkFrame(master = self, width = 250, corner_radius = 20)                                        
         self.left_frame.grid(row = 0, column = 0, sticky = "nswe")
         
-        self.left_frame.grid_rowconfigure(0, minsize=10)   # empty row with minsize as spacing
-        self.left_frame.grid_rowconfigure(5, weight=1)  # empty row as spacing
-        self.left_frame.grid_rowconfigure(8, minsize=20)    # empty row with minsize as spacing
-        self.left_frame.grid_rowconfigure(11, minsize=10)  # empty row with minsize as spacing
+        self.left_frame.grid_rowconfigure(0, minsize=10)
+        self.left_frame.grid_rowconfigure(1,minsize=10)
+        self.left_frame.grid_rowconfigure(5, weight=1)  
+        self.left_frame.grid_rowconfigure(8, minsize=20)  
+        self.left_frame.grid_rowconfigure(11, minsize=10)  
 
         self.mid_frame = customtkinter.CTkFrame(master=self, corner_radius = 20)
         self.mid_frame.grid(row = 0, column = 1, sticky = "nswe", padx = (20, 0))
@@ -68,7 +70,15 @@ class App(customtkinter.CTk):
         self.menu_label.grid(column=0, row=0, sticky="n", padx=15, pady=15)
 
     def set_buttons(self):
-        pass
+        play_btn = customtkinter.CTkButton(
+            master = self.left_frame,
+            text = 'Play',
+            text_font = ('Cooper Black', 25),
+            width = 130,
+            height = 80,
+            command = self.open_game
+        )
+        play_btn.grid(row = 1, column = 0, padx = 15, pady = 15)
 
     def set_switches(self):
         self.change_theme_menu = customtkinter.CTkOptionMenu(
@@ -91,7 +101,10 @@ class App(customtkinter.CTk):
         self.WEBCAM_HEIGHT = self.current_frame.shape[0]
         self.WEBCAM_WIDTH = self.current_frame.shape[1]
         self.final_frame = None
-        
+    
+    def open_game(self):
+        webbrowser.open('https://poki.pl/g/subway-surfers#')
+
     def change_theme(self, new_theme):
         customtkinter.set_appearance_mode(new_theme)
 
