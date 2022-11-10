@@ -46,19 +46,22 @@ class bodyDetector():
 
         h,w,c=img.shape
         if self.results.pose_landmarks:
-            Lmlist=[]
-            nose_x=self.results.pose_landmarks.landmark[self.mpPose.PoseLandmark.NOSE].x * w
-            nose_y=self.results.pose_landmarks.landmark[self.mpPose.PoseLandmark.NOSE].y * h
-            left_shoud_x=self.results.pose_landmarks.landmark[self.mpPose.PoseLandmark.LEFT_SHOULDER].x*w
-            left_shoud_y=self.results.pose_landmarks.landmark[self.mpPose.PoseLandmark.LEFT_SHOULDER].y*h
-            right_shoud_x=self.results.pose_landmarks.landmark[self.mpPose.PoseLandmark.RIGHT_SHOULDER].x*w
-            right_shoud_y=self.results.pose_landmarks.landmark[self.mpPose.PoseLandmark.RIGHT_SHOULDER].y*h
-            left_wrist_x=self.results.pose_landmarks.landmark[self.mpPose.PoseLandmark.LEFT_WRIST].x*w
-            left_wrist_y=self.results.pose_landmarks.landmark[self.mpPose.PoseLandmark.LEFT_WRIST].y*h
-            right_wrist_x=self.results.pose_landmarks.landmark[self.mpPose.PoseLandmark.RIGHT_WRIST].x*w
-            right_wrist_y=self.results.pose_landmarks.landmark[self.mpPose.PoseLandmark.RIGHT_WRIST].y*h
-            
-        return img
+            self.Lmlist=[]
+            self.nose_x=self.results.pose_landmarks.landmark[self.mpPose.PoseLandmark.NOSE].x * w
+            self.nose_y=self.results.pose_landmarks.landmark[self.mpPose.PoseLandmark.NOSE].y * h
+            self.left_shoud_x=self.results.pose_landmarks.landmark[self.mpPose.PoseLandmark.LEFT_SHOULDER].x*w
+            self.left_shoud_y=self.results.pose_landmarks.landmark[self.mpPose.PoseLandmark.LEFT_SHOULDER].y*h
+            self.right_shoud_x=self.results.pose_landmarks.landmark[self.mpPose.PoseLandmark.RIGHT_SHOULDER].x*w
+            self.right_shoud_y=self.results.pose_landmarks.landmark[self.mpPose.PoseLandmark.RIGHT_SHOULDER].y*h
+            self.left_wrist_x=self.results.pose_landmarks.landmark[self.mpPose.PoseLandmark.LEFT_WRIST].x*w
+            self.left_wrist_y=self.results.pose_landmarks.landmark[self.mpPose.PoseLandmark.LEFT_WRIST].y*h
+            self.right_wrist_x=self.results.pose_landmarks.landmark[self.mpPose.PoseLandmark.RIGHT_WRIST].x*w
+            self.right_wrist_y=self.results.pose_landmarks.landmark[self.mpPose.PoseLandmark.RIGHT_WRIST].y*h
+            #self.nos=[int(nose_x),int(nose_y)]
+            nos=(self.nose_x,self.nose_y)
+            self.Lmlist.append(nos)
+            #print(nos)
+        return img, self.Lmlist
     '''
     def make_1080(self,cap):
         cap.set(3,1920)
@@ -82,6 +85,7 @@ class bodyDetector():
         pt1=(int(w*(-0.5)),int(h*0.2))
         pt2=(int(w*5),int(h*0.2))
         linia_gorna=[pt1,pt2]
+        #print(linia_gorna)
         cv2.line(img,linia_gorna[0],linia_gorna[1],(255,0,0),3)
         #dolna krawedz
         pt11=(int(w*(-0.5)),int(h*0.75))
@@ -91,8 +95,12 @@ class bodyDetector():
         #print(self.linia_dolna[0])
         return self.linia_dolna
     def crossingLines(self,img):
-        print(self.linia_dolna[0])
+        #wypisanie wspolrzednej x linii dolnej
+        #print(self.linia_dolna[0])
         #return self.linia_dolna
+       # print(self.nos[0])
+        print(self.right_shoud_x)
+        #if self.Lmlist[1]>=
 
 
 def main():
@@ -108,7 +116,9 @@ def main():
         img=detector.findBody(img)
         img=cv2.flip(img,1)
         detector.drawingLines(img)
+        detector.getPosition(img)
         detector.crossingLines(img)
+        
         
         #pydirectinput.keyUp('w')wwwwwwwwwwwwwwwwww
         #pydirectinput.keyDown('w')
