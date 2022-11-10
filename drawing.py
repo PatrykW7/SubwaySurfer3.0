@@ -10,7 +10,7 @@ from pynput.keyboard import Key, Controller
 
 class drawing(bodyDetector):
     
-    
+
     def drawingLines(self,img,draw=True):   
         #lewa krawedz 
         h,w,c=img.shape
@@ -40,14 +40,12 @@ class drawing(bodyDetector):
         #return self.linia_dolna
         #print(bodyDetector.getPosition.right_wrist_x)
         #print(self.right_wrist_x)
-    def crossingLines(self,img,dupsko):
+    def crossingLines(self,img,lista):
 
-        self.dupsko=dupsko
-        print(self.dupsko)
-      #  self.dupa=bodyDetector.dupa
-     #   print(self.dupa)
-        #print(detector.dupa)
-        #print(self.dupa)
-        #print("co do chuja")
+        self.lista=lista
+        print(lista[0])
+        #dzialajacy print
+        #print(self.dupsko)
+
         
 

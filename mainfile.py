@@ -23,8 +23,9 @@ def main():
         #img.flags.writeable = False
         img=cv2.flip(img,1)
         detector.getPosition(img)
+        #print(detector.right_wrist_y)
         draw.drawingLines(img)
-        draw.crossingLines(img,detector.nose_x)
+        draw.crossingLines(img,detector.Lmlist)
         #draw.getPosition(img)
 
         #detector.crossingLines(img)

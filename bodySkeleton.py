@@ -33,11 +33,11 @@ class bodyDetector():
             left_wrist_y=self.results.pose_landmarks.landmark[self.mpPose.PoseLandmark.LEFT_WRIST].y*h
             #wypisywanie wspolrzednych nosa 
             #print(self.results.pose_landmarks.landmark[self.mpPose.PoseLandmark.NOSE].x * 360)
-            #if draw:
-                #self.mpDraw.draw_landmarks(img,self.results.pose_landmarks,self.mpPose.POSE_CONNECTIONS)
+            if draw:
+                self.mpDraw.draw_landmarks(img,self.results.pose_landmarks,self.mpPose.POSE_CONNECTIONS)
                 
-                #self.mpDraw.draw_landmarks(img,self.results.pose_landmarks,self.mpPose.POSE_CONNECTIONS,self.mpDraw.DrawingSpec(color=(245,117,66), thickness=2, circle_radius=2))
-                #cv2.circle(img,(int(left_wrist_x),int(left_wrist_y)),15,(255,0,255),cv2.FILLED)
+                self.mpDraw.draw_landmarks(img,self.results.pose_landmarks,self.mpPose.POSE_CONNECTIONS,self.mpDraw.DrawingSpec(color=(245,117,66), thickness=2, circle_radius=2))
+                cv2.circle(img,(int(left_wrist_x),int(left_wrist_y)),15,(255,0,255),cv2.FILLED)
         return img
 
 
@@ -57,6 +57,9 @@ class bodyDetector():
             self.right_wrist_x=self.results.pose_landmarks.landmark[self.mpPose.PoseLandmark.RIGHT_WRIST].x*w
             self.right_wrist_y=self.results.pose_landmarks.landmark[self.mpPose.PoseLandmark.RIGHT_WRIST].y*h
             self.dupsko=1
+            self.Lmlist=[self.nose_y,self.left_shoud_x,self.right_shoud_x,self.left_wrist_y,self.right_wrist_y]
+            #dzialajaca lista
+            #print(self.Lmlist)
             #self.nos=[int(nose_x),int(nose_y)]
             #print(nos)
         return img
